@@ -5,9 +5,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """The class is named after a queue as you can see,
-    I could use a queue data structure instead of a list
-    ain't gonna lie"""
+    """This class is doing a lot of things"""
     def __init__(self):
         super().__init__()
         self.cache_data = OrderedDict()
