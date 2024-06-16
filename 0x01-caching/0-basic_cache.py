@@ -5,6 +5,7 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class BasicCache(BaseCaching):
+    """You don't like the class name?"""
     def put(self, key, item):
         """I'm putting in here"""
         if key is None or item is None:

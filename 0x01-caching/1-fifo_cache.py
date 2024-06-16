@@ -5,6 +5,9 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class FIFOCache(BaseCaching):
+    """The class is named after a queue as you can see,
+    I could use a queue data structure instead of a list
+    ain't gonna lie"""
     def __init__(self):
         super().__init__()
         self.order_list = []
