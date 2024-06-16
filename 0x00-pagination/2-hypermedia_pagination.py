@@ -6,6 +6,7 @@ from typing import List, Dict
 
 index_range = __import__('0-simple_helper_function').index_range
 
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -34,8 +35,9 @@ class Server:
         if start > len(self.__dataset):
             return []
         return self.__dataset[start:end]
-    
+
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
+        """hyper getter"""
         assert type(page) == int and type(page_size) == int
         assert page > 0 and page_size > 0
         next_page = 0
@@ -58,5 +60,5 @@ class Server:
             'next_page': next_page,
             'prev_page': prev_page,
             'total_pages': total_pages
-    }
+        }
         return my_dict
