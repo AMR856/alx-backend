@@ -2,6 +2,7 @@
 """ Starts a Flash Web Application """
 from flask import Flask, render_template, g, request
 from flask_babel import Babel
+import pytz
 
 
 app = Flask(__name__)
@@ -36,6 +37,22 @@ def dict_maker():
             elm_list = elm.split('=')
             values_dict[elm_list[0]] = elm_list[1]
     return values_dict
+
+
+@babel.timezoneselector
+def get_timezone():
+    """A locator function but this time it's for time"""
+    values_dict_query = dict_maker()
+    timezone = ''
+    for key, value in values_dict_query.items():
+        if key == 'timezone':
+            timezone = value
+    if g.user:
+        timezone = g.user['timezone']
+    try:
+        return pytz.timezone(timezone).zone
+    except pytz.exceptions.UnknownTimeZoneError:
+        return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 @babel.localeselector
@@ -78,9 +95,6 @@ def before_request():
 @app.route('/', strict_slashes=False)
 def main_page():
     """Just prints a simple messages"""
-    # if (g.user == None):
-    #     return 'hi'
-    # return g.user
     return render_template('6-index.html')
 
 
