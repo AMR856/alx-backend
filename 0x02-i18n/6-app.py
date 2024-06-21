@@ -25,6 +25,7 @@ class Config:
 
 app.config.from_object(Config)
 
+
 def dict_maker():
     """What is this function btw?"""
     queries = request.query_string.decode('utf-8').split('&')
@@ -36,13 +37,19 @@ def dict_maker():
             values_dict[elm_list[0]] = elm_list[1]
     return values_dict
 
+
 @babel.localeselector
 def get_locale():
     """A locator function"""
-    values_dict = dict_maker()
-    for key, value in values_dict.items():
+    values_dict_query = dict_maker()
+    for key, value in values_dict_query.items():
         if key == 'locale' and value in Config.LANGUAGES:
             return value
+    if g.user and g.user['locale'] in Config.LANGUAGES:
+        return g.user['locale']
+    header_locale = request.headers.get('locale', '')
+    if header_locale in Config.LANGUAGES:
+        return header_locale
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
@@ -63,10 +70,11 @@ def before_request():
         if user_dict is not None:
             g.user = user_dict
 
+
 @app.route('/', strict_slashes=False)
 def main_page():
     """Just prints a simple messages"""
-    return render_template('5-index.html')
+    return render_template('6-index.html')
 
 
 if __name__ == "__main__":
