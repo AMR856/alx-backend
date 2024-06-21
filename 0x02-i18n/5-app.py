@@ -25,6 +25,7 @@ class Config:
 
 app.config.from_object(Config)
 
+
 def dict_maker():
     """What is this function btw?"""
     queries = request.query_string.decode('utf-8').split('&')
@@ -35,6 +36,7 @@ def dict_maker():
             elm_list = elm.split('=')
             values_dict[elm_list[0]] = elm_list[1]
     return values_dict
+
 
 @babel.localeselector
 def get_locale():
@@ -62,6 +64,7 @@ def before_request():
         user_dict = get_user(int(values_dict['login_as']))
         if user_dict is not None:
             g.user = user_dict
+
 
 @app.route('/', strict_slashes=False)
 def main_page():
