@@ -19,7 +19,7 @@ class Server:
         """Cached dataset
         """
         if self.__dataset is None:
-            with open(self.DATA_FILE) as f:
+            with open(Server.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
             self.__dataset = dataset[1:]
@@ -32,6 +32,13 @@ class Server:
         assert page > 0 and page_size > 0
         start, end = index_range(page, page_size)
         self.dataset()
+        # with open('myfile.txt', 'w', encoding='utf-8') as myfile:
+        #     for thing in self.dataset():
+        #         myfile.write(str(thing))
+        #         myfile.write('\n')
+        #     myfile.write('-----------------')
+        #     myfile.write('-----------------')
+        #     myfile.write('-----------------')
         if start > len(self.__dataset):
             return []
         return self.__dataset[start:end]

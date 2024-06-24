@@ -42,13 +42,13 @@ class Server:
         assert page > 0 and page_size > 0
         next_page = 0
         prev_page = 0
-        start, end = index_range(page, page_size)
-        data = self.get_page(page, page)
+        data = self.get_page(page, page_size)
         total_pages = math.ceil(len(self.__dataset) / page_size)
         if page + 1 <= total_pages:
             next_page = page + 1
         else:
             next_page = None
+
         if page != 1:
             prev_page = page - 1
         else:
